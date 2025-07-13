@@ -5,3 +5,4 @@ selenium-stealth==1.0.6
 pydantic==2.5.0
 python-json-logger==2.0.7
 aiohttp==3.9.1
+pydantic_settings==2.10.1
