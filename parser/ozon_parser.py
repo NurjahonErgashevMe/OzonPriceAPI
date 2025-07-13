@@ -1,6 +1,7 @@
 import json
 import logging
 import time
+import concurrent.futures
 from typing import List, Optional
 from driver_manager.selenium_manager import SeleniumManager
 from models.schemas import ArticleResult, PriceInfo
@@ -18,36 +19,124 @@ logger = logging.getLogger(__name__)
 
 class OzonParser:
     def __init__(self):
+        self.workers = []
+    
+    def initialize(self):
+        """
+        Initialize parser - workers will be created on demand
+        """
+        logger.info("Ozon parser initialized successfully")
+    
+    def parse_articles(self, articles: List[int]) -> List[ArticleResult]:
+        """
+        Parse multiple articles using parallel workers
+        """
+        worker_groups = self._distribute_articles(articles)
+        
+        if len(worker_groups) == 1:
+            return self._parse_with_single_worker(articles)
+        
+        return self._parse_with_multiple_workers(worker_groups, articles)
+    
+    def _distribute_articles(self, articles: List[int]) -> List[List[int]]:
+        """
+        Distribute articles across workers
+        """
+        total = len(articles)
+        
+        if total <= settings.MAX_ARTICLES_PER_WORKER:
+            return [articles]
+        
+        groups = []
+        for i in range(0, total, settings.MAX_ARTICLES_PER_WORKER):
+            group = articles[i:i + settings.MAX_ARTICLES_PER_WORKER]
+            groups.append(group)
+            if len(groups) >= settings.MAX_WORKERS:
+                break
+        
+        return groups
+    
+    def _parse_with_single_worker(self, articles: List[int]) -> List[ArticleResult]:
+        """
+        Parse with single worker
+        """
+        worker = OzonWorker()
+        try:
+            worker.initialize()
+            return worker.parse_articles(articles)
+        finally:
+            worker.close()
+    
+    def _parse_with_multiple_workers(self, worker_groups: List[List[int]], original_articles: List[int]) -> List[ArticleResult]:
+        """
+        Parse using multiple workers in parallel
+        """
+        with concurrent.futures.ThreadPoolExecutor(max_workers=len(worker_groups)) as executor:
+            futures = []
+            
+            for group in worker_groups:
+                future = executor.submit(self._parse_worker_group, group)
+                futures.append(future)
+            
+            all_results = []
+            for future in concurrent.futures.as_completed(futures):
+                worker_results = future.result()
+                all_results.extend(worker_results)
+        
+        return self._sort_results_by_original_order(all_results, original_articles)
+    
+    def _parse_worker_group(self, articles: List[int]) -> List[ArticleResult]:
+        """
+        Parse articles with dedicated worker
+        """
+        worker = OzonWorker()
+        try:
+            worker.initialize()
+            return worker.parse_articles(articles)
+        finally:
+            worker.close()
+    
+    def _sort_results_by_original_order(self, results: List[ArticleResult], original_articles: List[int]) -> List[ArticleResult]:
+        """
+        Sort results to match original article order
+        """
+        result_dict = {result.article: result for result in results}
+        return [result_dict[article] for article in original_articles if article in result_dict]
+    
+    def close(self):
+        """
+        Close parser
+        """
+        logger.info("Parser closed successfully")
+
+
+class OzonWorker:
+    def __init__(self):
         self.selenium_manager = SeleniumManager()
         self.driver = None
     
     def initialize(self):
         """
-        Initialize parser with driver setup
+        Initialize worker with driver setup
         """
         try:
             self.driver = self.selenium_manager.setup_driver()
-            logger.info("Ozon parser initialized successfully")
+            logger.info("Worker initialized successfully")
         except Exception as e:
-            logger.error(f"Failed to initialize parser: {e}")
+            logger.error(f"Failed to initialize worker: {e}")
             raise
     
     def parse_articles(self, articles: List[int]) -> List[ArticleResult]:
         """
-        Parse multiple articles and return results
+        Parse articles sequentially
         """
         if not self.driver:
-            raise RuntimeError("Parser not initialized")
+            raise RuntimeError("Worker not initialized")
         
         results = []
-        
         for article in articles:
-            logger.info(f"Parsing article: {article}")
             result = self.parse_single_article(article)
             results.append(result)
-            
-            # Small delay between requests
-            time.sleep(1)
         
         return results
     
@@ -206,8 +295,8 @@ class OzonParser:
     
     def close(self):
         """
-        Close parser and cleanup resources
+        Close worker and cleanup resources
         """
         if self.selenium_manager:
             self.selenium_manager.close()
-        logger.info("Parser closed successfully")
+        logger.info("Worker closed successfully")

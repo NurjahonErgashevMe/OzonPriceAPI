@@ -233,7 +233,7 @@ curl -X POST "http://localhost:8000/api/v1/get_price" \
 
 ## Future Enhancements
 
-- [ ] Multiple worker support
+- [x] Multiple worker support
 - [ ] Connection pooling
 - [ ] Caching mechanism
 - [ ] Rate limiting

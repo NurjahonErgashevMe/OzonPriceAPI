@@ -1,4 +1,5 @@
 import logging
+import time
 from fastapi import APIRouter, HTTPException, status
 from models.schemas import ArticlesRequest, ParseResponse, ArticleResult
 from parser.ozon_parser import OzonParser
@@ -29,6 +30,7 @@ async def get_price(request: ArticlesRequest):
     Parse prices for given articles
     """
     try:
+        start_time = time.time()
         logger.info(f"Received request to parse {len(request.articles)} articles")
         
         # Get parser instance
@@ -36,6 +38,11 @@ async def get_price(request: ArticlesRequest):
         
         # Parse articles
         results = parser.parse_articles(request.articles)
+        
+        # Calculate timing
+        end_time = time.time()
+        total_time = end_time - start_time
+        avg_time_per_article = total_time / len(request.articles) if request.articles else 0
         
         # Calculate statistics
         successful_results = [r for r in results if r.success]
@@ -52,7 +59,7 @@ async def get_price(request: ArticlesRequest):
             errors=errors
         )
         
-        logger.info(f"Parsing completed. Success: {len(successful_results)}, Failed: {len(failed_results)}")
+        logger.info(f"Parsing completed in {total_time:.2f}s. Success: {len(successful_results)}, Failed: {len(failed_results)}. Average: {avg_time_per_article:.2f}s per article")
         
         return response
         

@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     RETRY_DELAY: int = 2
     REQUEST_TIMEOUT: int = 10
     
+    # Worker settings
+    MAX_ARTICLES_PER_WORKER: int = 10
+    MAX_WORKERS: int = 5
+    
     # Browser settings
     USER_AGENT: str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
     

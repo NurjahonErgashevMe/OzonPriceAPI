@@ -1,16 +1,16 @@
 {
   "success": true,
-  "total_articles": 5,
-  "parsed_articles": 5,
+  "total_articles": 16,
+  "parsed_articles": 16,
   "results": [
     {
       "article": 2360879218,
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 74036,
-        "price": 82262,
-        "originalPrice": 359970
+        "cardPrice": 26965,
+        "price": 29941,
+        "originalPrice": 64610
       },
       "error": null
     },
@@ -19,9 +19,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 57820,
-        "price": 64245,
-        "originalPrice": 120800
+        "cardPrice": 31360,
+        "price": 34821,
+        "originalPrice": 75812
       },
       "error": null
     },
@@ -30,9 +30,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 89850,
-        "price": 99833,
-        "originalPrice": 459000
+        "cardPrice": 54443,
+        "price": 60493,
+        "originalPrice": 249000
       },
       "error": null
     },
@@ -41,9 +41,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 43090,
-        "price": 47877,
-        "originalPrice": 115000
+        "cardPrice": 54443,
+        "price": 60493,
+        "originalPrice": 249000
       },
       "error": null
     },
@@ -52,9 +52,130 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 55325,
-        "price": 61472,
-        "originalPrice": 79227
+        "cardPrice": 91535,
+        "price": 101706,
+        "originalPrice": 128629
+      },
+      "error": null
+    },
+    {
+      "article": 1649767704,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 59061,
+        "price": 65623,
+        "originalPrice": 145864
+      },
+      "error": null
+    },
+    {
+      "article": 2433082108,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 80865,
+        "price": 89850,
+        "originalPrice": 350000
+      },
+      "error": null
+    },
+    {
+      "article": 1372069683,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 19260,
+        "price": 21381,
+        "originalPrice": 49999
+      },
+      "error": null
+    },
+    {
+      "article": 1769433039,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 62137,
+        "price": 69042,
+        "originalPrice": 88713
+      },
+      "error": null
+    },
+    {
+      "article": 1837510918,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 60357,
+        "price": 67064,
+        "originalPrice": 106990
+      },
+      "error": null
+    },
+    {
+      "article": 2384249751,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 26965,
+        "price": 29941,
+        "originalPrice": 64610
+      },
+      "error": null
+    },
+    {
+      "article": 2384245580,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 31360,
+        "price": 34821,
+        "originalPrice": 75812
+      },
+      "error": null
+    },
+    {
+      "article": 2328688150,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 54443,
+        "price": 60493,
+        "originalPrice": 249000
+      },
+      "error": null
+    },
+    {
+      "article": 2328688150,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 54443,
+        "price": 60493,
+        "originalPrice": 249000
+      },
+      "error": null
+    },
+    {
+      "article": 2246018851,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 91535,
+        "price": 101706,
+        "originalPrice": 128629
+      },
+      "error": null
+    },
+    {
+      "article": 2274804444,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 59061,
+        "price": 65623,
+        "originalPrice": 145864
       },
       "error": null
     }
