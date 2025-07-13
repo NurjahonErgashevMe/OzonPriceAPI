@@ -1,0 +1,63 @@
+{
+  "success": true,
+  "total_articles": 5,
+  "parsed_articles": 5,
+  "results": [
+    {
+      "article": 2360879218,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 74036,
+        "price": 82262,
+        "originalPrice": 359970
+      },
+      "error": null
+    },
+    {
+      "article": 859220077,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 57820,
+        "price": 64245,
+        "originalPrice": 120800
+      },
+      "error": null
+    },
+    {
+      "article": 2430448285,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 89850,
+        "price": 99833,
+        "originalPrice": 459000
+      },
+      "error": null
+    },
+    {
+      "article": 2392842054,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 43090,
+        "price": 47877,
+        "originalPrice": 115000
+      },
+      "error": null
+    },
+    {
+      "article": 1774818716,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 55325,
+        "price": 61472,
+        "originalPrice": 79227
+      },
+      "error": null
+    }
+  ],
+  "errors": []
+}
