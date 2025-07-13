@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     API_DEBUG: bool = True
     
     # Selenium settings
-    HEADLESS: bool = False
+    HEADLESS: bool = True
     IMPLICIT_WAIT: int = 10
     PAGE_LOAD_TIMEOUT: int = 30
     
