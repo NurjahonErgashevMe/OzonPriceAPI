@@ -1,16 +1,16 @@
 {
   "success": true,
-  "total_articles": 16,
-  "parsed_articles": 16,
+  "total_articles": 40,
+  "parsed_articles": 39,
   "results": [
     {
       "article": 2360879218,
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 26965,
-        "price": 29941,
-        "originalPrice": 64610
+        "cardPrice": 74036,
+        "price": 82262,
+        "originalPrice": 359970
       },
       "error": null
     },
@@ -19,9 +19,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 31360,
-        "price": 34821,
-        "originalPrice": 75812
+        "cardPrice": 49807,
+        "price": 55341,
+        "originalPrice": 120800
       },
       "error": null
     },
@@ -30,9 +30,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 54443,
-        "price": 60493,
-        "originalPrice": 249000
+        "cardPrice": 89850,
+        "price": 99833,
+        "originalPrice": 459000
       },
       "error": null
     },
@@ -41,9 +41,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 54443,
-        "price": 60493,
-        "originalPrice": 249000
+        "cardPrice": 43090,
+        "price": 47877,
+        "originalPrice": 115000
       },
       "error": null
     },
@@ -52,9 +52,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 91535,
-        "price": 101706,
-        "originalPrice": 128629
+        "cardPrice": 55325,
+        "price": 61472,
+        "originalPrice": 79227
       },
       "error": null
     },
@@ -63,9 +63,9 @@
       "success": true,
       "price_info": {
         "isAvailable": true,
-        "cardPrice": 59061,
-        "price": 65623,
-        "originalPrice": 145864
+        "cardPrice": 47242,
+        "price": 58323,
+        "originalPrice": 85000
       },
       "error": null
     },
@@ -178,7 +178,266 @@
         "originalPrice": 145864
       },
       "error": null
+    },
+    {
+      "article": 3000000033,
+      "success": false,
+      "price_info": null,
+      "error": "Failed to extract price info"
+    },
+    {
+      "article": 2229057548,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 92391,
+        "price": 102656,
+        "originalPrice": 129832
+      },
+      "error": null
+    },
+    {
+      "article": 1707200180,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 4629,
+        "price": 5132,
+        "originalPrice": 9500
+      },
+      "error": null
+    },
+    {
+      "article": 1563574023,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 47447,
+        "price": 52719,
+        "originalPrice": 149999
+      },
+      "error": null
+    },
+    {
+      "article": 1922781846,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 69727,
+        "price": 77474,
+        "originalPrice": 159467
+      },
+      "error": null
+    },
+    {
+      "article": 550798603,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 17357,
+        "price": 19268,
+        "originalPrice": 49500
+      },
+      "error": null
+    },
+    {
+      "article": 1640239319,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 9245,
+        "price": 10272,
+        "originalPrice": 15000
+      },
+      "error": null
+    },
+    {
+      "article": 2246017617,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 89801,
+        "price": 99778,
+        "originalPrice": 127817
+      },
+      "error": null
+    },
+    {
+      "article": 2042778498,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 6768,
+        "price": 7502,
+        "originalPrice": 39147
+      },
+      "error": null
+    },
+    {
+      "article": 1972531799,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 25805,
+        "price": 28653,
+        "originalPrice": 44729
+      },
+      "error": null
+    },
+    {
+      "article": 1891423572,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 329433,
+        "price": 366036,
+        "originalPrice": 450878
+      },
+      "error": null
+    },
+    {
+      "article": 1590382207,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 7323,
+        "price": 8118,
+        "originalPrice": 44100
+      },
+      "error": null
+    },
+    {
+      "article": 1644248201,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 3097,
+        "price": 3436,
+        "originalPrice": 22300
+      },
+      "error": null
+    },
+    {
+      "article": 1922781204,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 86501,
+        "price": 96113,
+        "originalPrice": 188067
+      },
+      "error": null
+    },
+    {
+      "article": 1044578885,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 8236,
+        "price": 9151,
+        "originalPrice": 20500
+      },
+      "error": null
+    },
+    {
+      "article": 1761947652,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 19554,
+        "price": 21125,
+        "originalPrice": 100000
+      },
+      "error": null
+    },
+    {
+      "article": 1871396205,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 25368,
+        "price": 28162,
+        "originalPrice": 29360
+      },
+      "error": null
+    },
+    {
+      "article": 2403251730,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 38227,
+        "price": 42474,
+        "originalPrice": 94190
+      },
+      "error": null
+    },
+    {
+      "article": 2403251749,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 23326,
+        "price": 25894,
+        "originalPrice": 57694
+      },
+      "error": null
+    },
+    {
+      "article": 1972531451,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 27987,
+        "price": 31076,
+        "originalPrice": 65000
+      },
+      "error": null
+    },
+    {
+      "article": 1998259730,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 95113,
+        "price": 105681,
+        "originalPrice": 153000
+      },
+      "error": null
+    },
+    {
+      "article": 2293789309,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 52723,
+        "price": 58582,
+        "originalPrice": 80000
+      },
+      "error": null
+    },
+    {
+      "article": 1787544241,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 67959,
+        "price": 75510,
+        "originalPrice": 300000
+      },
+      "error": null
+    },
+    {
+      "article": 1691820698,
+      "success": true,
+      "price_info": {
+        "isAvailable": true,
+        "cardPrice": 93563,
+        "price": 103959,
+        "originalPrice": 265178
+      },
+      "error": null
     }
   ],
-  "errors": []
+  "errors": ["Failed to extract price info"]
 }

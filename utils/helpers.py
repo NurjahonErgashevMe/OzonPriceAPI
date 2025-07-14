@@ -53,6 +53,20 @@ def find_web_price_property(widget_states: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+def find_product_title(widget_states: Dict[str, Any]) -> Optional[str]:
+    """
+    Find product title in webProductHeading property
+    """
+    for key, value in widget_states.items():
+        if key.startswith('webProductHeading-') and isinstance(value, str):
+            try:
+                heading_data = json.loads(value)
+                return heading_data.get('title')
+            except (json.JSONDecodeError, KeyError):
+                continue
+    return None
+
+
 
 def build_ozon_api_url(article: int) -> str:
     """

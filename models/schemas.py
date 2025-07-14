@@ -18,6 +18,7 @@ class PriceInfo(BaseModel):
     cardPrice: Optional[int] = None
     price: Optional[int] = None
     originalPrice: Optional[int] = None
+    title: Optional[str] = None
 
 
 class ArticleResult(BaseModel):

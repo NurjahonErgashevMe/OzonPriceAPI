@@ -74,8 +74,6 @@ def test_multiple_articles():
         ]
     }
     
-    #  curl -X POST "http://localhost:8000/api/v1/get_price" -H "Content-Type: application/json" -d '{"articles": [2360879218,859220077,2430448285,2392842054,1774818716,1649767704,2433082108,1372069683,1769433039,1837510918,2384249751,2384245580,2328688150,2328688150,2246018851,2274804444]}'
-    
     try:
         start_time = time.time()
         response = requests.post(f"{BASE_URL}/api/v1/get_price", json=payload)

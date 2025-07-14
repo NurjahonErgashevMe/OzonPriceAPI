@@ -8,6 +8,7 @@ from models.schemas import ArticleResult, PriceInfo
 from utils.helpers import (
     build_ozon_api_url, 
     find_web_price_property, 
+    find_product_title,
     parse_price_data,
     is_valid_json_response
 )
@@ -279,6 +280,12 @@ class OzonWorker:
             price_info = parse_price_data(web_price_value)
             
             if price_info:
+                # Ищем название товара
+                title = find_product_title(widget_states)
+                if title:
+                    price_info.title = title
+                    logger.info(f"Found product title: {title[:50]}...")
+                
                 logger.info(f"Successfully extracted price info: {price_info}")
                 return price_info
             else:
