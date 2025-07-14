@@ -136,12 +136,21 @@ class SheetService {
       const startRow = results[0].rowIndex;
       const numRows = results.length;
       
+      // Сохраняем названия (если колонка существует)
+      if (this.columnMapping.TITLE) {
+        const titleValues = results.map(result => [result.title]);
+        const titleCol = this.getColumnNumber('TITLE');
+        const titleRange = this.sheet.getRange(startRow, titleCol, numRows, 1);
+        titleRange.setValues(titleValues);
+      }
+      
       // Сохраняем цену со скидкой (если колонка существует)
       if (this.columnMapping.CARD_PRICE) {
         const cardPriceValues = results.map(result => [result.cardPrice]);
         const cardPriceCol = this.getColumnNumber('CARD_PRICE');
         const cardPriceRange = this.sheet.getRange(startRow, cardPriceCol, numRows, 1);
         cardPriceRange.setValues(cardPriceValues);
+        cardPriceRange.setNumberFormat('#,##0" ₽"');
       }
       
       // Сохраняем обычную цену (если колонка существует)
@@ -150,6 +159,7 @@ class SheetService {
         const priceCol = this.getColumnNumber('PRICE');
         const priceRange = this.sheet.getRange(startRow, priceCol, numRows, 1);
         priceRange.setValues(priceValues);
+        priceRange.setNumberFormat('#,##0" ₽"');
       }
       
       // Сохраняем первоначальную цену (если колонка существует)
@@ -158,6 +168,7 @@ class SheetService {
         const originalPriceCol = this.getColumnNumber('ORIGINAL_PRICE');
         const originalPriceRange = this.sheet.getRange(startRow, originalPriceCol, numRows, 1);
         originalPriceRange.setValues(originalPriceValues);
+        originalPriceRange.setNumberFormat('#,##0" ₽"');
       }
       
       // Сохраняем доступность (если колонка существует)
@@ -189,8 +200,8 @@ class SheetService {
       
       const numRows = lastRow - CONFIG.DATA_START_ROW + 1;
       
-      // Очищаем все колонки с ценами
-      ['CARD_PRICE', 'PRICE', 'ORIGINAL_PRICE', 'AVAILABLE'].forEach(columnType => {
+      // Очищаем все колонки с данными
+      ['TITLE', 'CARD_PRICE', 'PRICE', 'ORIGINAL_PRICE', 'AVAILABLE'].forEach(columnType => {
         if (this.columnMapping[columnType]) {
           const col = this.getColumnNumber(columnType);
           const range = this.sheet.getRange(CONFIG.DATA_START_ROW, col, numRows, 1);

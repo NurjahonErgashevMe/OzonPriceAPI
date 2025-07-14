@@ -7,10 +7,11 @@ const CONFIG = {
   // Настройки поиска столбцов по названию
   COLUMN_KEYWORDS: {
     NUMBER: ['№', 'номер', 'number', 'n'],
-    ARTICLE: ['артикул', 'article', 'код', 'code', 'ozon'],
-    CARD_PRICE: ['цена со скидкой', 'card price', 'cardprice', 'скидочная'],
-    PRICE: ['цена', 'price', 'стоимость', 'cost', 'обычная цена'],
-    ORIGINAL_PRICE: ['первоначальная', 'original', 'оригинальная', 'без скидки'],
+    ARTICLE: ['артикул', 'article', 'код', 'code'],
+    TITLE: ['наименование', 'name', 'название', 'title', 'товар'],
+    CARD_PRICE: ['сpp', 'кошелька', 'cardprice', 'card price'],
+    PRICE: ['без ozon', 'без озон', 'всех скидок', 'price'],
+    ORIGINAL_PRICE: ['первоначальная', 'original', 'оригинальная'],
     AVAILABLE: ['доступность', 'available', 'в наличии', 'наличие']
   },
   

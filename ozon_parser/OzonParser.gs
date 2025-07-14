@@ -61,6 +61,7 @@ class OzonParser {
           const errorResults = batch.map(item => ({
             rowIndex: item.rowIndex,
             article: String(item.article),
+            title: CONFIG.MESSAGES.ERROR,
             cardPrice: CONFIG.MESSAGES.ERROR,
             price: CONFIG.MESSAGES.ERROR,
             originalPrice: CONFIG.MESSAGES.ERROR,
@@ -138,6 +139,7 @@ class OzonParser {
       results.push({
         rowIndex: originalItem.rowIndex,
         article: String(originalItem.article),
+        title: result?.title || CONFIG.MESSAGES.NO_PRICE_DATA,
         cardPrice: result?.cardPrice || CONFIG.MESSAGES.NO_PRICE_DATA,
         price: result?.price || CONFIG.MESSAGES.NO_PRICE_DATA,
         originalPrice: result?.originalPrice || CONFIG.MESSAGES.NO_PRICE_DATA,
