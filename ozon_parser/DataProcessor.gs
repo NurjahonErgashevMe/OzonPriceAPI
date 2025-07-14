@@ -63,17 +63,17 @@ class DataProcessor {
           title = priceInfo.title;
         }
         
-        // Извлекаем цены (они приходят в копейках, переводим в рубли)
+        // Извлекаем цены (они уже в рублях)
         if (priceInfo.cardPrice) {
-          cardPrice = Math.round(priceInfo.cardPrice / 100);
+          cardPrice = priceInfo.cardPrice;
         }
         
         if (priceInfo.price) {
-          price = Math.round(priceInfo.price / 100);
+          price = priceInfo.price;
         }
         
         if (priceInfo.originalPrice) {
-          originalPrice = Math.round(priceInfo.originalPrice / 100);
+          originalPrice = priceInfo.originalPrice;
         }
         
         isAvailable = priceInfo.isAvailable || false;
