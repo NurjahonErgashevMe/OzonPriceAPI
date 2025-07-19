@@ -13,17 +13,21 @@ class ArticlesRequest(BaseModel):
         return v
 
 
+class SellerInfo(BaseModel):
+    name: str
+
+
 class PriceInfo(BaseModel):
-    isAvailable: bool
     cardPrice: Optional[int] = None
     price: Optional[int] = None
     originalPrice: Optional[int] = None
-    title: Optional[str] = None
-
 
 class ArticleResult(BaseModel):
     article: int
     success: bool
+    isAvailable: Optional[bool] = None
+    title: Optional[str] = None
+    seller: Optional[SellerInfo] = None
     price_info: Optional[PriceInfo] = None
     error: Optional[str] = None
 

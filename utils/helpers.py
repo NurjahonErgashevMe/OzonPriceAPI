@@ -2,7 +2,7 @@ import json
 import re
 import logging
 from typing import Optional, Dict, Any
-from models.schemas import PriceInfo
+from models.schemas import PriceInfo, SellerInfo
 
 
 logger = logging.getLogger(__name__)
@@ -33,7 +33,6 @@ def parse_price_data(price_json_str: str) -> Optional[PriceInfo]:
         price_data = json.loads(price_json_str)
         
         return PriceInfo(
-            isAvailable=price_data.get('isAvailable', False),
             cardPrice=extract_price_from_string(price_data.get('cardPrice')),
             price=extract_price_from_string(price_data.get('price')),
             originalPrice=extract_price_from_string(price_data.get('originalPrice'))
@@ -62,6 +61,23 @@ def find_product_title(widget_states: Dict[str, Any]) -> Optional[str]:
             try:
                 heading_data = json.loads(value)
                 return heading_data.get('title')
+            except (json.JSONDecodeError, KeyError):
+                continue
+    return None
+
+
+def find_seller_name(widget_states: Dict[str, Any]) -> Optional[str]:
+    """
+    Find seller name in webStickyProducts property
+    """
+    for key, value in widget_states.items():
+        if key.startswith('webStickyProducts-') and isinstance(value, str):
+            try:
+                # Replace HTML entities before parsing
+                cleaned_value = value.replace('&quot;', '"')
+                sticky_data = json.loads(cleaned_value)
+                if 'seller' in sticky_data and 'name' in sticky_data['seller']:
+                    return sticky_data['seller']['name']
             except (json.JSONDecodeError, KeyError):
                 continue
     return None

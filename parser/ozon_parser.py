@@ -4,11 +4,12 @@ import time
 import concurrent.futures
 from typing import List, Optional
 from driver_manager.selenium_manager import SeleniumManager
-from models.schemas import ArticleResult, PriceInfo
+from models.schemas import ArticleResult, PriceInfo, SellerInfo
 from utils.helpers import (
     build_ozon_api_url, 
     find_web_price_property, 
     find_product_title,
+    find_seller_name,
     parse_price_data,
     is_valid_json_response
 )
@@ -202,15 +203,11 @@ class OzonWorker:
                         )
                 
                 # Parse JSON response
-                price_info = self.extract_price_info(page_source)
+                result = self.extract_price_info(page_source, article)
                 
-                if price_info:
+                if result:
                     logger.info(f"Successfully parsed article {article}")
-                    return ArticleResult(
-                        article=article,
-                        success=True,
-                        price_info=price_info
-                    )
+                    return result
                 else:
                     logger.warning(f"Failed to extract price info for article {article}")
                     if attempt < settings.MAX_RETRIES - 1:
@@ -243,9 +240,9 @@ class OzonWorker:
             error="Max retries exceeded"
         )
     
-    def extract_price_info(self, json_content: str) -> Optional[PriceInfo]:
+    def extract_price_info(self, json_content: str, article: int) -> Optional[ArticleResult]:
         """
-        Extract price information from JSON content
+        Extract price information from JSON content and return ArticleResult
         """
         try:
             logger.info("Extracting price info from JSON content")
@@ -277,17 +274,46 @@ class OzonWorker:
             logger.info("Found webPrice property, parsing price data")
             
             # Парсим данные о цене
-            price_info = parse_price_data(web_price_value)
-            
-            if price_info:
+            try:
+                price_json = json.loads(web_price_value)
+                is_available = price_json.get('isAvailable', False)
+                card_price = price_json.get('cardPrice')
+                price = price_json.get('price')
+                original_price = price_json.get('originalPrice')
+                
+                from utils.helpers import extract_price_from_string
+                
+                # Создаем результат с новой структурой
+                result = ArticleResult(
+                    article=article,
+                    success=True,
+                    isAvailable=is_available,
+                    price_info=PriceInfo(
+                        cardPrice=extract_price_from_string(card_price),
+                        price=extract_price_from_string(price),
+                        originalPrice=extract_price_from_string(original_price)
+                    )
+                )
+            except Exception as e:
+                logger.error(f"Error parsing price data: {e}")
+                return None
+                
+            if result:
+                
                 # Ищем название товара
                 title = find_product_title(widget_states)
                 if title:
-                    price_info.title = title
+                    result.title = title
                     logger.info(f"Found product title: {title[:50]}...")
                 
-                logger.info(f"Successfully extracted price info: {price_info}")
-                return price_info
+                # Ищем название селлера
+                seller_name = find_seller_name(widget_states)
+                if seller_name:
+                    result.seller = SellerInfo(name=seller_name)
+                    logger.info(f"Found seller name: {seller_name}")
+                
+                logger.info("Successfully extracted product information")
+                return result
             else:
                 logger.warning("Failed to parse price data from webPrice property")
                 return None

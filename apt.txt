@@ -1,5 +1,0 @@
-wget
-curl
-gnupg
-unzip
-google-chrome-stable
