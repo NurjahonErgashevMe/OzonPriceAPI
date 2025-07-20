@@ -6,3 +6,4 @@ pydantic>=2.7.0
 python-json-logger==2.0.7
 aiohttp==3.9.1
 pydantic_settings==2.10.1
+webdriver-manager==4.0.1

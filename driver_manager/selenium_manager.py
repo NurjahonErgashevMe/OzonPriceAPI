@@ -44,13 +44,18 @@ class SeleniumManager:
         
         # Headless mode
         if settings.HEADLESS:
-            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--headless=new")
         
         # Window size
         chrome_options.add_argument("--window-size=1920,1080")
         
         try:
-            driver = webdriver.Chrome(options=chrome_options)
+            # Используем selenium-manager для автоматического управления драйверами
+            from selenium.webdriver.chrome.service import Service
+            from webdriver_manager.chrome import ChromeDriverManager
+            
+            service = Service()
+            driver = webdriver.Chrome(service=service, options=chrome_options)
             
             # Apply stealth
             stealth(driver,
@@ -60,7 +65,7 @@ class SeleniumManager:
                    webgl_vendor="Intel Inc.",
                    renderer="Intel Iris OpenGL Engine",
                    fix_hairline=True,
-                   )
+                )
             
             # Set timeouts
             driver.implicitly_wait(settings.IMPLICIT_WAIT)
