@@ -35,6 +35,9 @@ class SeleniumManager:
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
         chrome_options.add_experimental_option('useAutomationExtension', False)
         
+        # Proxy settings (using Tor)
+        chrome_options.add_argument("--proxy-server=socks5://127.0.0.1:9050")
+        
         # Performance options
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-plugins")

@@ -10,8 +10,8 @@ class Settings(BaseSettings):
     
     # Selenium settings
     HEADLESS: bool = True
-    IMPLICIT_WAIT: int = 10
-    PAGE_LOAD_TIMEOUT: int = 30
+    IMPLICIT_WAIT: int = 20
+    PAGE_LOAD_TIMEOUT: int = 60
     
     # Ozon settings
     OZON_BASE_URL: str = "https://www.ozon.ru"
@@ -19,9 +19,9 @@ class Settings(BaseSettings):
     MAX_ARTICLES_PER_REQUEST: int = 50
     
     # Parser settings
-    MAX_RETRIES: int = 3
-    RETRY_DELAY: int = 2
-    REQUEST_TIMEOUT: int = 10
+    MAX_RETRIES: int = 5
+    RETRY_DELAY: int = 5
+    REQUEST_TIMEOUT: int = 30
     
     # Worker settings
     MAX_ARTICLES_PER_WORKER: int = 10
