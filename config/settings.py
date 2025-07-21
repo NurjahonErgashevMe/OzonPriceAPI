@@ -19,9 +19,9 @@ class Settings(BaseSettings):
     MAX_ARTICLES_PER_REQUEST: int = 50
     
     # Parser settings
-    MAX_RETRIES: int = 5
-    RETRY_DELAY: int = 5
-    REQUEST_TIMEOUT: int = 30
+    MAX_RETRIES: int = 3
+    RETRY_DELAY: int = 10
+    REQUEST_TIMEOUT: int = 60
     
     # Worker settings
     MAX_ARTICLES_PER_WORKER: int = 10

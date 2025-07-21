@@ -7,11 +7,13 @@ from driver_manager.selenium_manager import SeleniumManager
 from models.schemas import ArticleResult, PriceInfo, SellerInfo
 from utils.helpers import (
     build_ozon_api_url, 
+    build_ozon_api_url_fallback,
     find_web_price_property, 
     find_product_title,
     find_seller_name,
     parse_price_data,
-    is_valid_json_response
+    is_valid_json_response,
+    extract_price_from_html
 )
 from config.settings import settings
 
@@ -33,12 +35,11 @@ class OzonParser:
         """
         Parse multiple articles using parallel workers
         """
+        # Ограничиваем количество одновременных запросов
         worker_groups = self._distribute_articles(articles)
         
-        if len(worker_groups) == 1:
-            return self._parse_with_single_worker(articles)
-        
-        return self._parse_with_multiple_workers(worker_groups, articles)
+        # Используем только одного воркера для снижения нагрузки
+        return self._parse_with_single_worker(articles)
     
     def _distribute_articles(self, articles: List[int]) -> List[List[int]]:
         """
@@ -146,6 +147,12 @@ class OzonWorker:
         """
         Parse single article with retries
         """
+        # Добавляем случайную задержку между запросами
+        import random
+        delay = random.uniform(3.0, 8.0)
+        logger.info(f"Adding random delay of {delay:.2f} seconds before parsing article {article}")
+        time.sleep(delay)
+        
         for attempt in range(settings.MAX_RETRIES):
             try:
                 logger.info(f"Parsing article {article}, attempt {attempt + 1}")
@@ -186,24 +193,60 @@ class OzonWorker:
                 # Debug page content first
                 self.selenium_manager.debug_page_content()
                 
-                # Wait for JSON response
-                page_source = self.selenium_manager.wait_for_json_response()
+                # Получаем HTML страницы
+                page_source = self.driver.page_source
                 
                 if not page_source:
-                    logger.warning(f"No JSON response for article {article}")
+                    logger.warning(f"No page content for article {article}")
                     if attempt < settings.MAX_RETRIES - 1:
-                        logger.info(f"Retrying JSON wait in {settings.RETRY_DELAY} seconds...")
+                        logger.info(f"Retrying in {settings.RETRY_DELAY} seconds...")
                         time.sleep(settings.RETRY_DELAY)
                         continue
                     else:
                         return ArticleResult(
                             article=article,
                             success=False,
-                            error="No JSON response received"
+                            error="No page content received"
                         )
                 
-                # Parse JSON response
-                result = self.extract_price_info(page_source, article)
+                # Пробуем извлечь цену из HTML
+                price_info = extract_price_from_html(page_source)
+                
+                if price_info:
+                    # Создаем успешный результат
+                    result = ArticleResult(
+                        article=article,
+                        success=True,
+                        isAvailable=True,
+                        price_info=price_info
+                    )
+                else:
+                    # Если не удалось извлечь цену из HTML, пробуем API
+                    logger.info(f"Trying API fallback for article {article}")
+                    api_url = build_ozon_api_url_fallback(article)
+                    navigation_success = self.selenium_manager.navigate_to_url(api_url)
+                    
+                    if not navigation_success:
+                        logger.warning(f"API fallback navigation failed for article {article}")
+                        return ArticleResult(
+                            article=article,
+                            success=False,
+                            error="Failed to navigate to API URL"
+                        )
+                    
+                    # Wait for JSON response
+                    json_content = self.selenium_manager.wait_for_json_response()
+                    
+                    if not json_content:
+                        logger.warning(f"No JSON response for article {article}")
+                        return ArticleResult(
+                            article=article,
+                            success=False,
+                            error="No JSON response received"
+                        )
+                    
+                    # Parse JSON response
+                    result = self.extract_price_info(json_content, article)
                 
                 if result:
                     logger.info(f"Successfully parsed article {article}")

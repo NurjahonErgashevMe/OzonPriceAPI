@@ -27,16 +27,28 @@ class SeleniumManager:
         """
         chrome_options = Options()
         
+        # Rotate user agents
+        import random
+        user_agents = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"
+        ]
+        chrome_options.add_argument(f"--user-agent={random.choice(user_agents)}")
+        
         # Basic options
-        chrome_options.add_argument(f"--user-agent={settings.USER_AGENT}")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
         chrome_options.add_experimental_option('useAutomationExtension', False)
+        chrome_options.add_argument("--disable-web-security")
+        chrome_options.add_argument("--allow-running-insecure-content")
+        chrome_options.add_argument("--disable-features=IsolateOrigins,site-per-process")
         
-        # Proxy settings (using Tor)
-        chrome_options.add_argument("--proxy-server=socks5://127.0.0.1:9050")
+        # Add cookies to bypass some protections
+        chrome_options.add_argument("--disable-features=BlockInsecurePrivateNetworkRequests")
         
         # Performance options
         chrome_options.add_argument("--disable-extensions")
@@ -99,8 +111,20 @@ class SeleniumManager:
             logger.info(f"Navigating to: {url}")
             self.driver.get(url)
             
-            # Wait a bit for page to load
-            time.sleep(2)
+            # Имитация поведения человека
+            import random
+            time.sleep(random.uniform(2.0, 5.0))
+            
+            # Имитация скроллинга
+            try:
+                scroll_height = self.driver.execute_script("return document.body.scrollHeight")
+                for i in range(1, 5):
+                    self.driver.execute_script(f"window.scrollTo(0, {scroll_height * i / 5});")
+                    time.sleep(random.uniform(0.3, 0.7))
+                self.driver.execute_script("window.scrollTo(0, 0);")
+                time.sleep(random.uniform(0.5, 1.0))
+            except Exception as e:
+                logger.debug(f"Error during scrolling: {e}")
             
             # Check if we got blocked
             if self.is_blocked():
